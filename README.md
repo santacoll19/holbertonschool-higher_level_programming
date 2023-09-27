@@ -1,3 +1,1 @@
-#!/usr/bin/python3
-
-Python Project
+this is the holberton school higher level programing README,

@@ -1,2 +1,1 @@
-#!/usr/bin/python3
-Python project
+This is the python hello world project
