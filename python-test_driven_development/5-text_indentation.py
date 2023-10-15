@@ -1,15 +1,23 @@
 #!/usr/bin/python3
-"""Module to print a text with 2 new lines
-after each of these characters: ., ? and :"""
+"""_5 text indentation"""
 
 
 def text_indentation(text):
-    """Prints a text with 2 new lines"""
-    if type(text) is not str:
+    """Print text with two new lines after each ., ?, and :."""
+    if not isinstance(text, str):
         raise TypeError("text must be a string")
-    for i in range(len(text)):
-        if text[i] == '.' or text[i] == '?' or text[i] == ':':
-            print(text[i])
-            print()
-        else:
-            print(text[i], end="")
+
+    c = 0
+    while c < len(text) and text[c] == ' ':
+        c += 1
+
+    while c < len(text):
+        print(text[c], end="")
+        if text[c] == "\n" or text[c] in ".?:":
+            if text[c] in ".?:":
+                print("\n")
+            c += 1
+            while c < len(text) and text[c] == ' ':
+                c += 1
+            continue
+        c += 1
