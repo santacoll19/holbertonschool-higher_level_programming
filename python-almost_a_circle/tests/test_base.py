@@ -1,26 +1,56 @@
-#!/usr/bin/python3
-"""unittest for Base class"""
-
-
-import unittest
 from models.base import Base
 from models.rectangle import Rectangle
-from models.square import Square
+import unittest
 
 
 class TestBase(unittest.TestCase):
-    """testing functions for Base class"""
+    """ Testing  initialization """
 
-    def test_a_base_instantiation(self):
-        """test initialization of id if id None and if id int"""
-        b1 = Base()
-        self.assertEqual(b1.id, 1)
-        b2 = Base()
-        self.assertEqual(b2.id, 2)
-        b3 = Base(73)
-        self.assertEqual(b3.id, 73)
-        b4 = Base()
-        self.assertEqual(b4.id, 3)
+    def test_init(self):
+        new_obj = Base()
+        self.assertEqual(new_obj._Base__nb_objects, 1)
+        self.assertEqual(new_obj.id, 1)
+        new_obj_2 = Base()
+        self.assertEqual(new_obj_2._Base__nb_objects, 2)
+        self.assertEqual(new_obj_2.id, 2)
+        new_obj_3 = Base(89)
+        self.assertEqual(new_obj_3._Base__nb_objects, 2)
+        self.assertEqual(new_obj_3.id, 89)
+
+    def test_to_json_empty(self):
+        json = Base.to_json_string([])
+        self.assertEqual(json, '[]')
+
+    def test_to_json_none(self):
+        json = Base.to_json_string(None)
+        self.assertEqual(json, '[]')
+
+    """ Testing from json to string """
+
+    def test_json_srting(self):
+        json = Base.from_json_string(None)
+        self.assertEqual(json, [])
+
+    def test_json_str(self):
+        json = Base.from_json_string("[]")
+        self.assertEqual(json, [])
+
+    def test_json_str_good(self):
+        list_input = [
+            {'id': 89, 'width': 10, 'height': 4},
+            {'id': 7, 'width': 1, 'height': 7}
+        ]
+        json_li_input = Base.to_json_string(list_input)
+        json_output = Base.from_json_string(json_li_input)
+        self.assertIsInstance(json_output, list)
+
+    def test_json_str_empty(self):
+        json = Base.from_json_string(None)
+        self.assertEqual(json, [])
+
+    def test_json_str_empty_2(self):
+        json = Base.from_json_string("[]")
+        self.assertEqual(json, [])
 
 
 if __name__ == '__main__':
