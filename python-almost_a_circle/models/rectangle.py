@@ -1,17 +1,16 @@
 #!/usr/bin/python3
-"""Rectangle Module"""
+"""defines Rectangle class that inherits from Base"""
+
+
 from models.base import Base
 
 
 class Rectangle(Base):
-    """Rectangle class inheriting from Base"""
-    __width = 0
-    __height = 0
-    __x = 0
-    __y = 0
+    """class for Rectangle instances with
+    private instance attributes width, height, x, and y"""
 
     def __init__(self, width, height, x=0, y=0, id=None):
-        """Init function"""
+        """Instantiation of width, height, x, y, and id for Rectangle"""
         super().__init__(id)
         self.width = width
         self.height = height
@@ -20,79 +19,84 @@ class Rectangle(Base):
 
     @property
     def width(self):
-        """width property"""
-        return self.__width
-
-    @property
-    def height(self):
-        """height property"""
-        return self.__height
-
-    @property
-    def x(self):
-        """x property"""
-        return self.__x
-
-    @property
-    def y(self):
-        """y property"""
-        return self.__y
+        """gets private instance attribute width"""
+        return (self.__width)
 
     @width.setter
     def width(self, value):
-        """Width setter"""
+        """sets private instance attribute width"""
         if type(value) is not int:
             raise TypeError("width must be an integer")
-        if value <= 0:
+        elif value <= 0:
             raise ValueError("width must be > 0")
-        self.__width = value
+        else:
+            self.__width = value
+
+    @property
+    def height(self):
+        """gets private instance attribute height"""
+        return (self.__height)
 
     @height.setter
     def height(self, value):
-        """height setter"""
+        """sets private instance attribute height"""
         if type(value) is not int:
             raise TypeError("height must be an integer")
-        if value <= 0:
+        elif value <= 0:
             raise ValueError("height must be > 0")
-        self.__height = value
+        else:
+            self.__height = value
+
+    @property
+    def x(self):
+        """gets private instance attribute x"""
+        return (self.__x)
 
     @x.setter
     def x(self, value):
-        """x setter"""
+        """sets private instance attribute x"""
         if type(value) is not int:
             raise TypeError("x must be an integer")
-        if value < 0:
+        elif value < 0:
             raise ValueError("x must be >= 0")
-        self.__x = value
+        else:
+            self.__x = value
+
+    @property
+    def y(self):
+        """gets private instance attribute y"""
+        return (self.__y)
 
     @y.setter
     def y(self, value):
-        """y setter"""
+        """sets private instance attribute y"""
         if type(value) is not int:
             raise TypeError("y must be an integer")
-        if value < 0:
+        elif value < 0:
             raise ValueError("y must be >= 0")
-        self.__y = value
+        else:
+            self.__y = value
 
     def area(self):
         """returns area calculation for rectangle instance"""
         return (self.width * self.height)
 
     def display(self):
-        """prints in stdout the rectangle instance with '#'"""
-        for i in range(self.y):
-            print()
-        for i in range(self.height):
-            for j in range(self.x):
-                print(" ", end="")
-            for j in range(self.width):
-                print("#", end="")
-            print()
+        """prints in stdout the rectangle instance with '#'
+        with offsets x and y taken into account"""
+        for vertical in range(self.y):
+            print("")
+        for row in range(self.height):
+            print(" "*self.x, end="")
+            print("#"*self.width)
 
     def __str__(self):
-        """override __str__ with new string in the format"""
-        return (f"[Rectangle] ({self.id}) "
-                f"{self.x}/{self.y} - {self.width}/{self.height}")
+        """override __str__ with new string in the format
+        [Rectangle] (<id>) <x>/<y> - <width>/<height>"""
+        str_rep = "[Rectangle] ({}) {}/{} - {}/{}".format(
+            str(self.id), str(self.x), str(self.y),
+            str(self.width), str(self.height))
+        return (str_rep)
 
     def update(self, *args, **kwargs):
         """assigns an argument to each attribute of Rectangle"""
@@ -124,5 +128,10 @@ class Rectangle(Base):
 
     def to_dictionary(self):
         """returns dictionary representation of a Rectangle"""
-        return {'id': self.id, 'width': self.width, 'height': self.height,
-                'x': self.x, 'y': self.y}
+        dict_rep = {}
+        dict_rep["id"] = self.id
+        dict_rep["width"] = self.width
+        dict_rep["height"] = self.height
+        dict_rep["x"] = self.x
+        dict_rep["y"] = self.y
+        return dict_rep
